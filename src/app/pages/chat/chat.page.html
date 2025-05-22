@@ -18,7 +18,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <div class="chat-container">
     <mat-card *ngFor="let msg of messages" [ngClass]="msg.sender === 'yo' ? 'my-message' : 'john-message'">
