@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Chat</ion-title>
+    <ion-buttons slot="end">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span [style.fontWeight]="sender === 'john' ? 'bold' : 'normal'">John Doe</span>
+        <mat-slide-toggle
+          color="primary"
+          [checked]="sender === 'yo'"
+          (change)="toggleSender($event.checked ? 'yo' : 'john')"
+          style="margin: 0 8px;">
+        </mat-slide-toggle>
+        <span [style.fontWeight]="sender === 'yo' ? 'bold' : 'normal'">Yo</span>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="chat-container">
+    <mat-card *ngFor="let msg of messages" [ngClass]="msg.sender === 'yo' ? 'my-message' : 'john-message'">
+      <strong>{{ msg.sender === 'yo' ? 'Yo' : 'John Doe' }}:</strong> {{ msg.text }}
+    </mat-card>
+  </div>
+
+  <div class="chat-input">
+    <mat-form-field appearance="outline" class="input-field">
+      <input matInput [(ngModel)]="input" placeholder="Escribe un mensaje...">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="sendMessage()">Enviar</button>
+  </div>
+</ion-content>

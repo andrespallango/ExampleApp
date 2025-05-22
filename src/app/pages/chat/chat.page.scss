@@ -1,0 +1,37 @@
+.chat-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.my-message {
+  align-self: flex-end;
+  background: #dcf8c6;
+}
+
+.john-message {
+  align-self: flex-start;
+  background: #fff;
+}
+
+mat-card {
+  max-width: 70%;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 8px;
+  position: sticky;
+  bottom: 0;
+  background: #fafafa;
+}
+
+.input-field {
+  flex: 1;
+}
