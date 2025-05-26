@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
+import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp, cartOutline, cartSharp, closeOutline, closeSharp } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,24 @@ import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutlin
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Chat', url: '/folder/chat', icon: 'chatbubble' } 
+    { title: 'Chat', url: '/chat', icon: 'mail' },
+    { title: 'Shopping', url: '/shopping', icon: 'cart' },
+    { title: 'Trash', url: '/folder/trash', icon: 'trash' }
   ];
   constructor() {
-    addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
+    addIcons({
+      mailOutline, mailSharp,
+      paperPlaneOutline, paperPlaneSharp,
+      heartOutline, heartSharp,
+      archiveOutline, archiveSharp,
+      trashOutline, trashSharp,
+      warningOutline, warningSharp,
+      bookmarkOutline, bookmarkSharp,
+      cartOutline, cartSharp,
+      'cart-outline': cartOutline,
+      'cart-sharp': cartSharp,
+      'close-outline': closeOutline,
+      'close-sharp': closeSharp
+    });
   }
 }

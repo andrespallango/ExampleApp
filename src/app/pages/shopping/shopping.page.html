@@ -1,0 +1,94 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Shopping</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Shopping</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="products-list">
+    <mat-card *ngFor="let product of products" class="product-card">
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="product.image" alt="{{ product.name }}" />
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+        <p><strong>Precio:</strong> ${{ product.price }}</p>
+        <mat-form-field appearance="outline" class="qty-field">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" min="1" [(ngModel)]="product.qty" />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(product)">Agregar al carrito</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- FAB -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="openCart()">
+      <span class="fab-icon-badge-wrapper">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-badge *ngIf="cart.length > 0" color="danger" class="cart-badge">{{ getCartCount() }}</ion-badge>
+      </span>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal [isOpen]="cartModalOpen" (didDismiss)="closeCart()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Carrito</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeCart()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list *ngIf="cart.length > 0">
+          <ion-item *ngFor="let item of cart">
+            <img [src]="item.image" alt="{{ item.name }}" slot="start" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px; margin-right: 12px;">
+            <ion-label>
+              <div class="cart-item-title">{{ item.name }}</div>
+              <div class="cart-item-price">${{ item.price * item.qty }}</div>
+            </ion-label>
+            <div class="cart-qty-controls">
+              <button mat-icon-button color="primary" (click)="decreaseQty(item)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span class="cart-qty">{{ item.qty }}</span>
+              <button mat-icon-button color="primary" (click)="increaseQty(item)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <button mat-icon-button color="warn" (click)="removeFromCart(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label><strong>Total</strong></ion-label>
+            <ion-note slot="end"><strong>${{ getTotal() }}</strong></ion-note>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="cart.length === 0" class="empty-cart">
+          <p>El carrito está vacío.</p>
+        </div>
+        <div class="cart-actions" *ngIf="cart.length > 0 && !purchaseComplete">
+          <button mat-raised-button color="accent" (click)="pay()">Pagar</button>
+        </div>
+        <div class="thank-you" *ngIf="purchaseComplete">
+          <p>¡Gracias por tu compra!</p>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,8 +1,14 @@
-.chat-container {
-  padding: 16px;
+ion-content, .chat-container {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.chat-container {
+  flex: 1 1 auto;
+  padding: 16px;
   gap: 8px;
+  overflow-y: auto;
 }
 
 .my-message {
@@ -23,13 +29,17 @@ mat-card {
 }
 
 .chat-input {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  gap: 8px;
   position: sticky;
   bottom: 0;
-  background: #fafafa;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 12px 16px 12px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
 }
 
 .input-field {
