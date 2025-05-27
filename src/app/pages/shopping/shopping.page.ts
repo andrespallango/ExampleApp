@@ -60,6 +60,7 @@ export class ShoppingPage implements OnInit {
   cart: any[] = [];
   cartModalOpen = false;
   purchaseComplete = false;
+  product2Available = true; 
 
   constructor() { }
 
@@ -67,6 +68,20 @@ export class ShoppingPage implements OnInit {
   }
 
   addToCart(product: any) {
+    if (product.name === 'Producto 2') {
+      this.simulateProduct2Availability()
+        .then(() => {
+          this.addProductToCart(product);
+        })
+        .catch(() => {
+          alert('Producto 2 está agotado. Reabasteciendo...');
+        });
+    } else {
+      this.addProductToCart(product);
+    }
+  }
+
+  addProductToCart(product: any) {
     const found = this.cart.find(item => item.name === product.name);
     if (found) {
       found.qty += product.qty;
@@ -74,6 +89,21 @@ export class ShoppingPage implements OnInit {
       this.cart.push({ ...product });
     }
     product.qty = 1;
+  }
+
+  simulateProduct2Availability(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.product2Available) {
+        this.product2Available = false;
+        resolve();
+      } else {
+        setTimeout(() => {
+          this.product2Available = true;
+          alert('¡Producto 2 reabastecido!');
+        }, 3000);
+        reject();
+      }
+    });
   }
 
   increaseQty(item: any) {
